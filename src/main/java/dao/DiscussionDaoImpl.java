@@ -109,11 +109,29 @@ public class DiscussionDaoImpl implements DiscussionDao{
 
     @Override
     public void updateDiscussion(DiscussionBean discussionBean) {
-
+        try {
+            conn = ConnProvider.getConn();
+            pst = conn.prepareStatement("UPDATE discussion SET title = ?, body = ?, grant_date = now() WHERE discussion_id = ?");
+            pst.setString(1, discussionBean.getTitle());
+            pst.setString(2, discussionBean.getBody());
+            pst.setInt(3, discussionBean.getDiscussionID());
+            pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public void deleteDiscussion(DiscussionBean discussionBean) {
-
+    public void deleteDiscussion(Integer id) {
+        try {
+            conn = ConnProvider.getConn();
+            pst = conn.prepareStatement("DELETE FROM discussion WHERE discussion_id = ?");
+            pst.setInt(1, id);
+            pst.execute();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

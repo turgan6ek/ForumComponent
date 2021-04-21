@@ -11,5 +11,5 @@ public interface DiscussionDao {
     public void dislike(DiscussionBean discussionBean);
     public DiscussionBean getDiscussion(Integer id);
     public void updateDiscussion(DiscussionBean discussionBean);
-    public void deleteDiscussion(DiscussionBean discussionBean);
+    public void deleteDiscussion(Integer id);
 }
