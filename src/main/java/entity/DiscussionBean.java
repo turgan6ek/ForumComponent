@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class DiscussionBean implements Serializable {
     private Integer discussionID;
-    private AccountBean accountBean;
+    private Integer userID;
     private String body;
     private String title;
     private Date date;
@@ -16,9 +16,9 @@ public class DiscussionBean implements Serializable {
 
     }
 
-    public DiscussionBean(Integer discussionID, AccountBean accountBean, String body, String title, Date date, int likes, int dislikes) {
+    public DiscussionBean(Integer discussionID, Integer userID, String body, String title, Date date, int likes, int dislikes) {
         this.discussionID = discussionID;
-        this.accountBean = accountBean;
+        this.userID = userID;
         this.body = body;
         this.title = title;
         this.date = date;
@@ -26,7 +26,7 @@ public class DiscussionBean implements Serializable {
         this.dislikes = dislikes;
     }
     public DiscussionBean(AccountBean accountBean, String body, String title, Date date, int likes, int dislikes){
-        this(null, accountBean, body, title, date, likes, dislikes);
+        this(null, userID, body, title, date, likes, dislikes);
     }
     public int getDiscussionID() {
         return discussionID;
@@ -36,12 +36,12 @@ public class DiscussionBean implements Serializable {
         this.discussionID = discussionID;
     }
 
-    public AccountBean getAccountBean() {
-        return accountBean;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setAccountBean(AccountBean accountBean) {
-        this.accountBean = accountBean;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getBody() {

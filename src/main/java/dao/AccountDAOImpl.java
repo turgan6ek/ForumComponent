@@ -21,8 +21,6 @@ public class AccountDAOImpl implements AccountDao{
                 ps.setString(1, acc.getUsername());
                 ps.setString(2, acc.getPassword());
                 ps.setString(3, acc.getEmail());
-                ps.setString(4, acc.getPassword());
-                ps.setInt(5, 2);
                 int numRowsAffected = ps.executeUpdate();
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
@@ -51,9 +49,6 @@ public class AccountDAOImpl implements AccountDao{
                 account.setUsername(rs.getString(2));
                 account.setPassword(rs.getString(3));
                 account.setEmail(rs.getString(4));
-                account.setPhone_num(rs.getString(5));
-                account.setPhone_num(rs.getString(5));
-                account.setRolenum(rs.getInt(6));
             }
             System.out.println(account.getUsername());
         }
