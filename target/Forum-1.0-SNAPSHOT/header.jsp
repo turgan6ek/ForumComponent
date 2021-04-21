@@ -202,9 +202,12 @@
             <a href="myforums.jsp" class="nav-item nav-link active"><i class="fa fa-list"></i><span>My Discussions</span></a>
 
             <div class="nav-item dropdown" style="padding-top: 5px">
-                <%  AccountDao accountDAO = new AccountDAOImpl();
+
+                <jsp:useBean id="user" scope="session" class="entity.AccountBean"></jsp:useBean>
+                <%
+                    AccountDao accountDAO = new AccountDAOImpl();
                     String username = (String) session.getAttribute("username");
-                    AccountBean user = accountDAO.getAccount(username);
+                    user = accountDAO.getAccount(username);
                     if (user.getUsername() == null) {
                         session.setAttribute("username", "Guest");
                     }
@@ -212,7 +215,7 @@
                 <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">${username}<b class="caret"></b></a>
                 <div class="dropdown-menu">
                     <%
-                        if (session.getAttribute("username") != "Guest") {%>
+                        if (user.getUsername() != "Guest") {%>
 
                     <a href="logout" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
 

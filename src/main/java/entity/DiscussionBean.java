@@ -25,7 +25,7 @@ public class DiscussionBean implements Serializable {
         this.likes = likes;
         this.dislikes = dislikes;
     }
-    public DiscussionBean(AccountBean accountBean, String body, String title, Date date, int likes, int dislikes){
+    public DiscussionBean(Integer userID, String body, String title, Date date, int likes, int dislikes){
         this(null, userID, body, title, date, likes, dislikes);
     }
     public int getDiscussionID() {

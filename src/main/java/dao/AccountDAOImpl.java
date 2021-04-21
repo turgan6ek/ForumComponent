@@ -81,6 +81,27 @@ public class AccountDAOImpl implements AccountDao{
     }
 
     @Override
+    public AccountBean getAccount(Integer id) {
+        AccountBean account = new AccountBean();
+        try {
+            conn = ConnProvider.getConn();
+            pst = conn.prepareStatement("SELECT * FROM accounts WHERE user_id = ?");
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                account.setUser_id(rs.getInt(1));
+                account.setUsername(rs.getString(2));
+                account.setPassword(rs.getString(3));
+                account.setEmail(rs.getString(4));
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        return account;
+    }
+
+    @Override
     public boolean ifExists(String username) {
         AccountBean account = new AccountBean();
 
