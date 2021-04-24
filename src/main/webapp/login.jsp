@@ -99,7 +99,6 @@
         <%
             String message = (String) request.getAttribute("message");
             if (message != null) {
-
         %>
         <div class="alert alert-danger" role="alert">
             ${message}

@@ -17,7 +17,7 @@ public class DiscussionDaoImpl implements DiscussionDao{
     public void insertDiscussion(DiscussionBean discussionBean) {
         if (discussionBean != null) {
             try (PreparedStatement ps = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setInt(1, discussionBean.getDiscussionID());
+                ps.setInt(1, discussionBean.getUserID());
                 ps.setString(2, discussionBean.getTitle());
                 ps.setString(3, discussionBean.getBody());
                 int numRowsAffected = ps.executeUpdate();
@@ -50,6 +50,7 @@ public class DiscussionDaoImpl implements DiscussionDao{
                 discussion.setDate(rs.getTimestamp(5));
                 discussion.setLikes(rs.getInt(6));
                 discussion.setDislikes(rs.getInt(7));
+                list.add(discussion);
             }
         }
         catch (Exception e) {
@@ -59,7 +60,8 @@ public class DiscussionDaoImpl implements DiscussionDao{
     }
 
     @Override
-    public void like(DiscussionBean discussionBean) {
+    public void like(Integer id) {
+        DiscussionBean discussionBean = this.getDiscussion(id);
         String query = "UPDATE public.discussion SET likes = " + discussionBean.getLikes() + 1 +  " WHERE discussion_id = " + discussionBean.getDiscussionID();
         try {
             Statement statement = conn.createStatement();
@@ -71,7 +73,8 @@ public class DiscussionDaoImpl implements DiscussionDao{
     }
 
     @Override
-    public void dislike(DiscussionBean discussionBean) {
+    public void dislike(Integer id) {
+        DiscussionBean discussionBean = this.getDiscussion(id);
         String query = "UPDATE public.discussion SET dislikes = " + discussionBean.getDislikes() + 1 +  " WHERE discussion_id = " + discussionBean.getDiscussionID();
         try {
             Statement statement = conn.createStatement();

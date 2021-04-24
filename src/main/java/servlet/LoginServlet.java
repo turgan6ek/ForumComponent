@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
             if (user.getUsername() == null) {
                 session.setAttribute("username", "Guest");
             }
+            session.setAttribute("user",user);
             req.getRequestDispatcher("forum.jsp").forward(req,resp);
         }
         else {

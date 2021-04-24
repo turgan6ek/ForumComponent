@@ -1,4 +1,10 @@
-<%@ page import="entity.AccountBean" %><%--
+<%@ page import="entity.AccountBean" %>
+<%@ page import="dao.DiscussionDao" %>
+<%@ page import="dao.DiscussionDaoImpl" %>
+<%@ page import="entity.DiscussionBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.AccountDao" %>
+<%@ page import="dao.AccountDAOImpl" %><%--
   Created by IntelliJ IDEA.
   User: turga
   Date: 13.04.2021
@@ -29,7 +35,30 @@
     </tr>
     </thead>
     <tbody>
-
+    <%
+        DiscussionDao discussionDao = new DiscussionDaoImpl();
+        AccountDao accountDao = new AccountDAOImpl();
+        List<DiscussionBean> discussions = discussionDao.getDiscussions();
+        for (DiscussionBean discussion: discussions) {
+            AccountBean account = accountDao.getAccount(discussion.getUserID());
+            String name = account.getUsername();
+    %>
+    <tr>
+        <th><%= discussion.getDiscussionID()%></th>
+        <td><a href="${pageContext.request.contextPath}/page?id=<%= discussion.getDiscussionID()%>"><%= discussion.getTitle()%> </a></td>
+        <td><%= name %></td>
+        <jsp:useBean id="user" scope="session" class="entity.AccountBean"> </jsp:useBean>
+        <%
+            if (user.getUser_id() == discussion.getUserID()) {
+        %>
+        <td><a href="${pageContext.request.contextPath}/page/edit?id=<%= discussion.getDiscussionID()%>">Edit</a></td>
+        <%
+            }
+        %>
+    </tr>
+    <%
+        }
+    %>
     </tbody>
 </table>
 </body>

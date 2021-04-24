@@ -45,17 +45,16 @@
     %>
     <tr>
         <th><%= discussion.getDiscussionID()%></th>
-        <td><a href="discussion.jsp?id=<%= discussion.getDiscussionID()%>"><%= discussion.getTitle()%></a></td>
+        <td><a href="${pageContext.request.contextPath}/page?id=<%= discussion.getDiscussionID()%>"><%= discussion.getTitle()%> </a></td>
         <td><%= name %></td>
-        <jsp:useBean id="user" class="entity.AccountBean"></jsp:useBean>
+        <jsp:useBean id="user" scope="session" class="entity.AccountBean"> </jsp:useBean>
         <%
             if (user.getUser_id() == discussion.getUserID()) {
         %>
-        <a href="edit.jsp?id=<%= discussion.getDiscussionID()%>">Edit</a>
+        <td><a href="${pageContext.request.contextPath}/page/edit?id=<%= discussion.getDiscussionID()%>">Edit</a></td>
         <%
             }
         %>
-        <td><%= discussion.getDiscussionID()%></td>
     </tr>
     <%
         }
